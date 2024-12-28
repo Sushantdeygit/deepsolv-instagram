@@ -1,1 +1,1 @@
-export const DB_NAME = "taxi";
+export const DB_NAME = "instagram";

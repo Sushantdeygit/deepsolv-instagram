@@ -2,34 +2,60 @@ import mongoose, { Schema } from "mongoose";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
-const userSchema = new Schema({
-  fullName: {
-    firstName: {
+const userSchema = new Schema(
+  {
+    name: {
       type: String,
       required: true,
-      minLength: [3, "First name should be at least 3 characters"],
+      trim: true,
     },
-    lastName: {
+    username: {
       type: String,
       required: true,
-      minLength: [3, "Last name should be at least 3 characters"],
+      unique: true,
+      trim: true,
     },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
+      trim: true,
+    },
+    password: {
+      type: String,
+      select: false,
+    },
+    profileImage: {
+      type: String, // aws s3 url
+      default: "",
+    },
+    googleId: {
+      type: String,
+      unique: true,
+      sparse: true,
+    },
+    bio: {
+      type: String,
+      default: "",
+    },
+    followers: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
+    following: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
   },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: true,
-    minLength: [6, "Password should be at least 6 characters long"],
-    select: false,
-  },
-  socketId: {
-    type: String,
-  },
-});
+  {
+    timestamps: true,
+  }
+);
 
 userSchema.methods.generateAccessToken = function () {
   return jwt.sign(

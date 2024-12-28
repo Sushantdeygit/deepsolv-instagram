@@ -1,7 +1,7 @@
 version: "3"
 services:
   backend:
-    container_name: taxi_management_backend
+    container_name: instagram_backend
     build: . # Build the image from the Dockerfile in the current directory
     ports:
       - "8000:8000" # Map port 8000 of the container to port 8000 on the host
