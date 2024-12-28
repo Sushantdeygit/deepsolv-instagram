@@ -1,0 +1,305 @@
+{
+	"info": {
+		"_postman_id": "1952e75b-c620-47e7-ac87-89c5d5e44ed0",
+		"name": "User Routes Collection",
+		"description": "Postman collection for user-related endpoints (register, login, OAuth, profile, etc.)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32153945"
+	},
+	"item": [
+		{
+			"name": "Register User",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"John Doe\",\n    \"username\": \"john_doe\",\n    \"email\": \"john@example.com\",\n    \"password\": \"secret123\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/users/register",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"users",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login User",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"identifier\": \"john@example.com\",\n    \"password\": \"secret123\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/users/login",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Google OAuth (redirect)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/users/google",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"users",
+						"google"
+					]
+				},
+				"description": "Redirects user to Google's OAuth consent screen"
+			},
+			"response": []
+		},
+		{
+			"name": "Google OAuth Callback",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/users/google/callback",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"users",
+						"google",
+						"callback"
+					]
+				},
+				"description": "After Google verifies user, returns JWT token in JSON response."
+			},
+			"response": []
+		},
+		{
+			"name": "Get User Profile",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/users/:username",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"users",
+						":username"
+					],
+					"variable": [
+						{
+							"key": "username",
+							"value": "john_doe"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Follow User",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/users/:username/follow",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"users",
+						":username",
+						"follow"
+					],
+					"variable": [
+						{
+							"key": "username",
+							"value": "john_doe"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unfollow User",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/users/:username/unfollow",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"users",
+						":username",
+						"unfollow"
+					],
+					"variable": [
+						{
+							"key": "username",
+							"value": "john_doe"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search User",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/users/searchUser?username=john",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"users",
+						"searchUser"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "john"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Profile Picture",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "profilePicture",
+							"value": "",
+							"type": "file"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/users/profilePicture",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"users",
+						"profilePicture"
+					]
+				},
+				"description": "Upload a single file field named 'profilePicture'"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Bio",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"bio\": \"Hello, this is my updated bio!\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/users/bio",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"users",
+						"bio"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout User",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/users/logout",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"users",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

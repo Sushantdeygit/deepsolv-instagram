@@ -1,0 +1,307 @@
+{
+	"info": {
+		"_postman_id": "ec5108c7-4fb8-4deb-9172-53be2c07978d",
+		"name": "Posts Routes Collection",
+		"description": "Postman collection for the posts-related endpoints (create, get, like/unlike, feed, search, etc.)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32153945"
+	},
+	"item": [
+		{
+			"name": "Create Post",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"caption\": \"My new post\",\n  \"mediaURL\": \"https://example.com/image.jpg\",\n  \"backgroundMusicURL\": \"\",\n  \"category\": \"Tech\",\n  \"hashtags\": [\"#nodejs\", \"#api\"]\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/create",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Current User Posts (Query Pagination)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/:userId?page=1&limit=10",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						":userId"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "limit",
+							"value": "10"
+						}
+					],
+					"variable": [
+						{
+							"key": "userId",
+							"value": "yourUserIdHere"
+						}
+					]
+				},
+				"description": "Fetch posts for a user (userId) with pagination in query params."
+			},
+			"response": []
+		},
+		{
+			"name": "Get User Posts (Page + Limit in URL)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/:userId/:page/:limit",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						":userId",
+						":page",
+						":limit"
+					],
+					"variable": [
+						{
+							"key": "userId",
+							"value": "yourUserIdHere"
+						},
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "limit",
+							"value": "10"
+						}
+					]
+				},
+				"description": "Fetch user posts with page + limit as URL params (instead of query)."
+			},
+			"response": []
+		},
+		{
+			"name": "Get Single Post",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/:postId",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						":postId"
+					],
+					"variable": [
+						{
+							"key": "postId",
+							"value": "yourPostIdHere"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Like Post",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/:postId/like",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						":postId",
+						"like"
+					],
+					"variable": [
+						{
+							"key": "postId",
+							"value": "yourPostIdHere"
+						}
+					]
+				},
+				"description": "Add the current user to the post's likes array."
+			},
+			"response": []
+		},
+		{
+			"name": "Unlike Post",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/:postId/unlike",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						":postId",
+						"unlike"
+					],
+					"variable": [
+						{
+							"key": "postId",
+							"value": "yourPostIdHere"
+						}
+					]
+				},
+				"description": "Remove the current user from the post's likes array."
+			},
+			"response": []
+		},
+		{
+			"name": "Get Feed",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/feed?page=1&limit=10",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"feed"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "limit",
+							"value": "10"
+						}
+					]
+				},
+				"description": "Fetch posts from users that the current user follows (paginated)."
+			},
+			"response": []
+		},
+		{
+			"name": "Search Posts",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/search?hashtag=nodejs&category=Tech&date=2023-01-01",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"search"
+					],
+					"query": [
+						{
+							"key": "hashtag",
+							"value": "nodejs"
+						},
+						{
+							"key": "category",
+							"value": "Tech"
+						},
+						{
+							"key": "date",
+							"value": "2023-01-01"
+						}
+					]
+				},
+				"description": "Search posts by hashtag, category, date. Adjust query params as needed."
+			},
+			"response": []
+		},
+		{
+			"name": "Hashtag Posts",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/hashtag/:hashtag",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"hashtag",
+						":hashtag"
+					],
+					"variable": [
+						{
+							"key": "hashtag",
+							"value": "nodejs"
+						}
+					]
+				},
+				"description": "Get posts for a specific hashtag. Change `:hashtag` param to your desired hashtag."
+			},
+			"response": []
+		}
+	]
+}
