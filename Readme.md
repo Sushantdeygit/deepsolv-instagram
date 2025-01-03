@@ -1,6 +1,6 @@
 An Instagram-like social media backend built with Node.js, Express, MongoDB, and JWT for authentication. Includes OAuth login via Google (and possibly others like GitHub). Users can create posts, follow/unfollow, like/unlike, comment on posts, and more.
 
-Postman Collection: added json files for postman collection
+Postman Collection: added json files for postman collection ./postman_collections
 
 Table of Contents:
 
